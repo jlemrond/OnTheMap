@@ -21,6 +21,12 @@ class LoginAuthViewController: UIViewController {
 
         usernameTextField.delegate = self
         passwordTextField.delegate = self
+
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        // Ensure password is not stored.
+        passwordTextField.text = ""
     }
 
     @IBAction func beginLogin(sender: AnyObject) {
@@ -34,8 +40,27 @@ class LoginAuthViewController: UIViewController {
             return
         }
 
-        print(usernameTextField.text)
+        // Perform request on High Priority Thread and display the next
+        // view controller on the Main Thread.
+        performHighPriority {
+            UdacityClient.sharedInstance.getSessionID(username: self.usernameTextField.text!, password: self.passwordTextField.text!) { (error) in
+                performOnMain({
 
+                    if error != nil {
+                        self.errorMessageLabel.text = error
+                    } else {
+                        let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MapAndTableView") as! UITabBarController
+                        self.presentViewController(tabBarController, animated: true, completion: nil)
+                    }
+                })
+            }
+        }
+
+    }
+
+    @IBAction func didTapSignUp(sender: AnyObject) {
+
+        UIApplication.sharedApplication().openURL(UdacityClient.SignUp.url)
 
     }
 
@@ -58,6 +83,12 @@ class LoginAuthViewController: UIViewController {
 extension LoginAuthViewController : UITextFieldDelegate {
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+
+        if textField == usernameTextField {
+            passwordTextField.becomeFirstResponder()
+            return true
+        }
+        
         textField.resignFirstResponder()
         return true
     }
