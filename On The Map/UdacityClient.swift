@@ -21,13 +21,13 @@ class UdacityClient: NSObject {
 
     // Authentication/User Variables.
     var sessionID: String?
-    var accountKey: Int?
+    var accountKey: String?
 
 
     /// Get Session ID when a valid username and password is submitted.
     func getSessionID(username username: String, password: String, completionHandler: (error: String?) -> Void) -> NSURLSessionDataTask {
 
-        let url = createUdacityURL()
+        let url = createUdacityURL(.login)
 
         // Request Details
         let request = NSMutableURLRequest(URL: url)
@@ -81,6 +81,8 @@ class UdacityClient: NSObject {
                 return
             }
 
+            print(jsonData)
+
             // Get Session Data
             guard let sessionData = jsonData[ResponseKeys.session] as? [String: AnyObject] else {
                 sendError("No session data")
@@ -93,10 +95,18 @@ class UdacityClient: NSObject {
                 return
             }
 
-            print(sessionID)
-            print(jsonData)
+            guard let accountData = jsonData[ResponseKeys.account] as? [String: AnyObject] else {
+                sendError("Unable to get Account Data")
+                return
+            }
+
+            guard let accountKey = accountData[ResponseKeys.key] as? String else {
+                sendError("Unable to get Account ID")
+                return
+            }
 
             self.sessionID = sessionID
+            self.accountKey = accountKey
 
             completionHandler(error: nil)
 
@@ -109,15 +119,86 @@ class UdacityClient: NSObject {
 
     }
 
-    private func createUdacityURL() -> NSURL {
+    func getUserData(completionHandler: (error: String) -> Void) {
+
+        let url = createUdacityURL(.getUserData)
+
+        print("URL: \(url)")
+
+        let request = NSMutableURLRequest(URL: url)
+        let task = session.dataTaskWithRequest(request) { (data, response, error) in
+
+            // Error Function
+            func sendError(message: String) {
+                print(message)
+                print("Error: \(error)")
+                print("Response: \(response)")
+                completionHandler(error: message)
+            }
+
+            // Next 3 guard statements validate we have received the data we
+            // want to recieve, and not an error
+            guard error == nil else {
+                if error?.code == -1001 {
+                    sendError("Request Timed Out. Check your network connection.")
+                    return
+                }
+
+                sendError("An error was found with your request.")
+                return
+            }
+
+            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                sendError("Unable to Login, please check your username and password.")
+                return
+            }
+
+            guard let data = data else {
+                sendError("No data was returned")
+                return
+            }
+
+            // Delete the first 5 characters in the data. (Udacity Specific Thing)
+            let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
+
+            // Parse data into JSON
+            var jsonData: AnyObject!
+            do {
+                jsonData = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
+            } catch {
+                print("Unable to deserialize JSON data")
+                return
+            }
+
+            print(jsonData)
+
+        }
+
+        task.resume()
+
+    }
+
+    private func createUdacityURL(method: UdacityClient.method) -> NSURL {
+
+        var methodPath: String
+
+        switch method {
+        case .login:
+            methodPath = method.rawValue
+        case .getUserData:
+            guard let accountKey = accountKey else {
+                methodPath = method.rawValue
+                break
+            }
+
+            methodPath = method.rawValue + accountKey
+        }
 
         // Components to construct the URL
         let components = NSURLComponents()
         components.scheme = URL.apiScheme
         components.host = URL.apiHost
-        components.path = URL.apiPath
-
-        // TODO: Add parameters loop.
+        components.path = URL.apiPath + methodPath
 
         return components.URL!
     }
@@ -137,7 +218,14 @@ extension UdacityClient {
 
         static let apiScheme: String = "https"
         static let apiHost: String = "www.udacity.com"
-        static let apiPath: String = "/api/session"
+        static let apiPath: String = "/api"
+
+    }
+
+    enum method: String {
+
+        case login = "/session"
+        case getUserData = "/users/"
 
     }
 

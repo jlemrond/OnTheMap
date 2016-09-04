@@ -16,6 +16,7 @@
 		EA3692811D7B92F600ECF3E6 /* On_The_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692801D7B92F600ECF3E6 /* On_The_MapUITests.swift */; };
 		EA3692921D7BABCE00ECF3E6 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692911D7BABCE00ECF3E6 /* UdacityClient.swift */; };
 		EA3692941D7C707B00ECF3E6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692931D7C707B00ECF3E6 /* Utilities.swift */; };
+		EA3692961D7C945800ECF3E6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692951D7C945800ECF3E6 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		EA3692821D7B92F600ECF3E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA3692911D7BABCE00ECF3E6 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		EA3692931D7C707B00ECF3E6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		EA3692951D7C945800ECF3E6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				EA36928F1D7BAB9C00ECF3E6 /* Model */,
 				EA3692601D7B92F600ECF3E6 /* AppDelegate.swift */,
 				EA3692621D7B92F600ECF3E6 /* LoginAuthViewController.swift */,
+				EA3692951D7C945800ECF3E6 /* MapViewController.swift */,
 				EA36928E1D7B931B00ECF3E6 /* Assets */,
 			);
 			path = "On The Map";
@@ -281,6 +284,7 @@
 				EA3692631D7B92F600ECF3E6 /* LoginAuthViewController.swift in Sources */,
 				EA3692611D7B92F600ECF3E6 /* AppDelegate.swift in Sources */,
 				EA3692941D7C707B00ECF3E6 /* Utilities.swift in Sources */,
+				EA3692961D7C945800ECF3E6 /* MapViewController.swift in Sources */,
 				EA3692921D7BABCE00ECF3E6 /* UdacityClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
