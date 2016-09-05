@@ -14,11 +14,15 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
+    let parse = ParseClient.sharedInstance
+
+    override func viewDidLoad() {
+        mapView.delegate = self
+    }
+
     @IBAction func test(sender: AnyObject) {
 
-        UdacityClient.sharedInstance.getUserData { (error) in
-            print("Completion")
-        }
+        // let pin = MKPointAnnotation()
 
     }
 

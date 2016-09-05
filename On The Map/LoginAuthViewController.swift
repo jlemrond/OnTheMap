@@ -31,6 +31,8 @@ class LoginAuthViewController: UIViewController {
 
     @IBAction func beginLogin(sender: AnyObject) {
 
+        // TODO: Disable Buttons when pressed.
+
         // Remove Keyboard from View.
         resignFirstResponderForAll()
 
