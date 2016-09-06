@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 class ParseClient: NSObject {
 
@@ -21,10 +22,9 @@ class ParseClient: NSObject {
 
     // Pin Array
     var pins: [Pin] = []
-    var pinsLoaded = false
 
     // MARK: - Get Student Locations
-    func getStudnetLocations() {
+    func getStudnetLocations(completion: (results: [[String: AnyObject]]) -> Void) {
 
         let url = buildParseURL(.getStudentLocation, parameters: nil)
 
@@ -39,7 +39,6 @@ class ParseClient: NSObject {
                 print(message)
                 print("Error: \(error)")
                 print("Response: \(response)")
-                self.pinsLoaded = false
                 //completionHandler(error: message)
             }
 
@@ -74,12 +73,14 @@ class ParseClient: NSObject {
                 return
             }
             
-            guard let results = jsonData[ResponseKeys.results] as? [[String: AnyObject]]else {
+            guard let results = jsonData[ResponseKeys.results] as? [[String: AnyObject]] else {
                 sendError("No results returned")
                 return
             }
 
-            self.collectPins(results)
+            //self.collectPins(results)
+
+            completion(results: results)
 
         }
 
@@ -91,20 +92,18 @@ class ParseClient: NSObject {
 
     // MARK: Collect Pins
     // Collect Pins and store them in pins array
-    func collectPins(data: [[String:AnyObject]]) {
+    func collectPins(data: [[String:AnyObject]]) -> [MKAnnotation] {
 
         pins = []
 
         for (_, item) in data.enumerate() {
 
             let pin = Pin(properties: item)
-            pin.printName()
             pins.append(pin)
 
         }
 
-        print("Pins Loaded")
-
+        return pins
 
     }
 

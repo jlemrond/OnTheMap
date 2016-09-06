@@ -18,11 +18,27 @@ class MapViewController: UIViewController {
 
     override func viewDidLoad() {
         mapView.delegate = self
+
+        performHighPriority { 
+            self.parse.getStudnetLocations { (results) in
+                let pinsArray = ParseClient.sharedInstance.collectPins(results)
+                performOnMain({
+                    self.mapView.addAnnotations(pinsArray)
+                })
+            }
+        }
+
     }
 
     @IBAction func test(sender: AnyObject) {
 
-        // let pin = MKPointAnnotation()
+        // TODO: Adding Errors
+
+        parse.getStudnetLocations { (results) in
+            let pinsArray = ParseClient.sharedInstance.collectPins(results)
+            self.mapView.addAnnotations(pinsArray)
+            print(pinsArray[5].title)
+        }
 
     }
 

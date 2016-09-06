@@ -243,3 +243,33 @@ extension UdacityClient {
     }
 
 }
+
+
+protocol Networkable {
+
+    func makeAPIRequest(request: NSMutableURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void)
+
+}
+
+extension Networkable {
+
+    func makeAPIRequest(request: NSMutableURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
+
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
+
+            // Sending Errors
+            func sendError(message: String) {
+                print(message)
+                print("Error: \(error)")
+                print("Response: \(response)")
+                let userInfo = [NSLocalizedDescriptionKey: message]
+                completionHandler(result: nil, error: NSError(domain: "APIRequest", code: 1, userInfo: userInfo))
+            }
+
+        }
+
+        task.resume()
+
+    }
+
+}

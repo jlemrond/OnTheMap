@@ -22,7 +22,7 @@ class Pin: NSObject, MKAnnotation {
 
     var title: String? {
 
-        let first: String = (firstName != nil) ? firstName! : ""
+        let first: String = (firstName != nil) ? "\(firstName!) " : ""
         let last: String = (lastName != nil) ? lastName! : ""
 
         return first + last
