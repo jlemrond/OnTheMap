@@ -36,13 +36,21 @@ class MapViewController: UIViewController {
             }
         }
 
+        performStandardPriority { 
+            UdacityClient.sharedInstance.getUserData({ (error) in
+                if error != nil {
+                    print(error)
+                }
+            })
+        }
+
     }
 
     @IBAction func test(sender: AnyObject) {
 
-        // TODO: Adding Errors
+        print(UdacityClient.sharedInstance.firstName)
 
-        UdacityClient.sharedInstance.getUserData(nil)
+
 
     }
 

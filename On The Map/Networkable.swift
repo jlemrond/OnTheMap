@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Protocol Used for Making API Requests.
 protocol Networkable {
 
     func makeAPIRequest(request: NSMutableURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void)

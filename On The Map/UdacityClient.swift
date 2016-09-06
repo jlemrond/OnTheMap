@@ -22,6 +22,8 @@ class UdacityClient: NSObject, Networkable {
     // Authentication/User Variables.
     var sessionID: String?
     var accountKey: String?
+    var firstName: String?
+    var lastName: String?
 
 
     /// Get Session ID when a valid username and password is submitted.
@@ -82,7 +84,7 @@ class UdacityClient: NSObject, Networkable {
 
     }
 
-    func getUserData(completionHandler: ((error: String) -> Void)?) {
+    func getUserData(completionHandler: ((error: String?) -> Void)) {
 
         let url = createUdacityURL(.getUserData)
 
@@ -90,11 +92,25 @@ class UdacityClient: NSObject, Networkable {
 
         let request = NSMutableURLRequest(URL: url)
         makeAPIRequest(request) { (result, error) in
-            guard error == nil else {
-                print(error)
+
+            guard let jsonData = result else {
+                completionHandler(error: error?.localizedDescription)
                 return
             }
-            print(result)
+
+            guard let userData = jsonData["user"] as? [String: AnyObject] else {
+                completionHandler(error: "No user data returned")
+                return
+            }
+
+            if let firstName = userData["first_name"] {
+                self.firstName = String(firstName)
+            }
+
+            if let lastName = userData["first_name"] {
+                self.lastName = String(lastName)
+            }
+
         }
 
     }
