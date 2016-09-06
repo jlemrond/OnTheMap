@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class ParseClient: NSObject {
+class ParseClient: NSObject, Networkable {
 
     // Singleton Set Up
     static let sharedInstance = ParseClient()
@@ -24,7 +24,10 @@ class ParseClient: NSObject {
     var pins: [Pin] = []
 
     // MARK: - Get Student Locations
-    func getStudnetLocations(completion: (results: [[String: AnyObject]]) -> Void) {
+    func getStudnetLocations(completion: (results: [[String: AnyObject]]?, error: String?) -> Void) {
+
+        // Reset Array of Pins
+        pins = []
 
         let url = buildParseURL(.getStudentLocation, parameters: nil)
 
@@ -32,63 +35,39 @@ class ParseClient: NSObject {
         request.addValue(Keys.applicationID, forHTTPHeaderField: HeaderFields.applicationID)
         request.addValue(Keys.api, forHTTPHeaderField: HeaderFields.api)
 
-        let task = session.dataTaskWithRequest(request) { (data, response, error) in
+        makeAPIRequest(request) { (result, error) in
 
-            // Error Function
-            func sendError(message: String) {
-                print(message)
-                print("Error: \(error)")
-                print("Response: \(response)")
-                //completionHandler(error: message)
-            }
-
-            // Next 3 guard statements validate we have received the data we
-            // want to recieve, and not an error
-            guard error == nil else {
-                if error?.code == -1001 {
-                    sendError("Request Timed Out. Check your network connection.")
-                    return
-                }
-
-                sendError("An error was found with your request.")
+            guard let jsonData = result else {
+                completion(results: nil, error: error?.localizedDescription)
                 return
             }
 
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                sendError("Unable to Login, please check your username and password.")
-                return
-            }
-
-            guard let data = data else {
-                sendError("No data was returned")
-                return
-            }
-
-            // Parse data into JSON
-            var jsonData: AnyObject!
-            do {
-                jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-            } catch {
-                print("Unable to deserialize JSON data")
-                return
-            }
-            
             guard let results = jsonData[ResponseKeys.results] as? [[String: AnyObject]] else {
-                sendError("No results returned")
+                completion(results: nil, error: "No results returned")
                 return
             }
 
-            //self.collectPins(results)
-
-            completion(results: results)
-
+            completion(results: results, error: nil)
         }
-
-        task.resume()
-
     }
 
+
     // MARK: -
+
+    // MARK: Parse JSON Data
+    func parseJSONData(data: NSData) -> AnyObject? {
+
+        var jsonData: AnyObject!
+        do {
+            jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+        } catch {
+            print("Unable to deserialize JSON data")
+            return nil
+        }
+
+        return jsonData
+
+    }
 
     // MARK: Collect Pins
     // Collect Pins and store them in pins array

@@ -20,7 +20,15 @@ class MapViewController: UIViewController {
         mapView.delegate = self
 
         performHighPriority { 
-            self.parse.getStudnetLocations { (results) in
+            self.parse.getStudnetLocations { (results, error) in
+                guard error == nil else {
+                    return
+                }
+
+                guard let results = results else {
+                    return
+                }
+
                 let pinsArray = ParseClient.sharedInstance.collectPins(results)
                 performOnMain({
                     self.mapView.addAnnotations(pinsArray)
@@ -34,11 +42,7 @@ class MapViewController: UIViewController {
 
         // TODO: Adding Errors
 
-        parse.getStudnetLocations { (results) in
-            let pinsArray = ParseClient.sharedInstance.collectPins(results)
-            self.mapView.addAnnotations(pinsArray)
-            print(pinsArray[5].title)
-        }
+        UdacityClient.sharedInstance.getUserData(nil)
 
     }
 
