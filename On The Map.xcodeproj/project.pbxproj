@@ -21,6 +21,8 @@
 		EA36929A1D7CB02000ECF3E6 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692991D7CB02000ECF3E6 /* Pin.swift */; };
 		EA36929C1D7DD70100ECF3E6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA36929B1D7DD70100ECF3E6 /* MapView.swift */; };
 		EA36929F1D7E728A00ECF3E6 /* Networkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA36929E1D7E728A00ECF3E6 /* Networkable.swift */; };
+		EA3692A11D7F86D000ECF3E6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692A01D7F86D000ECF3E6 /* TableViewController.swift */; };
+		EA3692A31D7F8EEC00ECF3E6 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692A21D7F8EEC00ECF3E6 /* NavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		EA3692991D7CB02000ECF3E6 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		EA36929B1D7DD70100ECF3E6 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		EA36929E1D7E728A00ECF3E6 /* Networkable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networkable.swift; sourceTree = "<group>"; };
+		EA3692A01D7F86D000ECF3E6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		EA3692A21D7F8EEC00ECF3E6 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 				EA3692601D7B92F600ECF3E6 /* AppDelegate.swift */,
 				EA3692621D7B92F600ECF3E6 /* LoginAuthViewController.swift */,
 				EA3692951D7C945800ECF3E6 /* MapViewController.swift */,
+				EA3692A01D7F86D000ECF3E6 /* TableViewController.swift */,
 				EA36928E1D7B931B00ECF3E6 /* Assets */,
 			);
 			path = "On The Map";
@@ -166,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				EA36929B1D7DD70100ECF3E6 /* MapView.swift */,
+				EA3692A21D7F8EEC00ECF3E6 /* NavigationBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -304,7 +310,9 @@
 				EA36929A1D7CB02000ECF3E6 /* Pin.swift in Sources */,
 				EA36929F1D7E728A00ECF3E6 /* Networkable.swift in Sources */,
 				EA36929C1D7DD70100ECF3E6 /* MapView.swift in Sources */,
+				EA3692A11D7F86D000ECF3E6 /* TableViewController.swift in Sources */,
 				EA3692981D7CA2EA00ECF3E6 /* ParseClient.swift in Sources */,
+				EA3692A31D7F8EEC00ECF3E6 /* NavigationBar.swift in Sources */,
 				EA3692631D7B92F600ECF3E6 /* LoginAuthViewController.swift in Sources */,
 				EA3692611D7B92F600ECF3E6 /* AppDelegate.swift in Sources */,
 				EA3692941D7C707B00ECF3E6 /* Utilities.swift in Sources */,

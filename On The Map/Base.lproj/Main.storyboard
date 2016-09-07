@@ -90,7 +90,7 @@
         <!--List-->
         <scene sceneID="ubQ-PT-guF">
             <objects>
-                <viewController title="List" id="aNg-4n-vpA" sceneMemberID="viewController">
+                <viewController title="List" id="aNg-4n-vpA" customClass="TableViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SLR-VN-gDf"/>
                         <viewControllerLayoutGuide type="bottom" id="MWB-t2-del"/>
@@ -98,9 +98,33 @@
                     <view key="view" contentMode="scaleToFill" id="GAt-xn-QMX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dA7-L0-ofC">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="On The Map" id="aVx-jE-wEe"/>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PxZ-iy-ugz">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dA7-L0-ofC" firstAttribute="leading" secondItem="GAt-xn-QMX" secondAttribute="leadingMargin" constant="-20" id="AYx-DD-soZ"/>
+                            <constraint firstItem="PxZ-iy-ugz" firstAttribute="top" secondItem="dA7-L0-ofC" secondAttribute="bottom" id="E8i-1O-HMt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PxZ-iy-ugz" secondAttribute="trailing" constant="-20" id="EuZ-y6-k4o"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dA7-L0-ofC" secondAttribute="trailing" constant="-20" id="HF1-tT-yqy"/>
+                            <constraint firstItem="dA7-L0-ofC" firstAttribute="top" secondItem="SLR-VN-gDf" secondAttribute="bottom" id="Hf4-XG-ecX"/>
+                            <constraint firstItem="MWB-t2-del" firstAttribute="top" secondItem="PxZ-iy-ugz" secondAttribute="bottom" id="RNj-KC-sdk"/>
+                            <constraint firstItem="PxZ-iy-ugz" firstAttribute="leading" secondItem="GAt-xn-QMX" secondAttribute="leadingMargin" constant="-20" id="cyb-nC-fRW"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="n8d-Ce-rY3"/>
+                    <connections>
+                        <outlet property="tableView" destination="PxZ-iy-ugz" id="sIr-HC-2wV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Vk-T5-9rK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

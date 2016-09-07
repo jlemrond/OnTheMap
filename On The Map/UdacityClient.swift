@@ -91,6 +91,7 @@ class UdacityClient: NSObject, Networkable {
         print("URL: \(url)")
 
         let request = NSMutableURLRequest(URL: url)
+        
         makeAPIRequest(request) { (result, error) in
 
             guard let jsonData = result else {
@@ -98,16 +99,16 @@ class UdacityClient: NSObject, Networkable {
                 return
             }
 
-            guard let userData = jsonData["user"] as? [String: AnyObject] else {
+            guard let userData = jsonData[ResponseKeys.user] as? [String: AnyObject] else {
                 completionHandler(error: "No user data returned")
                 return
             }
 
-            if let firstName = userData["first_name"] {
+            if let firstName = userData[ResponseKeys.firstName] {
                 self.firstName = String(firstName)
             }
 
-            if let lastName = userData["first_name"] {
+            if let lastName = userData[ResponseKeys.lastName] {
                 self.lastName = String(lastName)
             }
 
@@ -193,6 +194,10 @@ extension UdacityClient {
         static let account = "account"
         static let key = "key"
         static let registered = "registered"
+
+        static let user = "user"
+        static let firstName = "first_name"
+        static let lastName = "last_name"
 
     }
 

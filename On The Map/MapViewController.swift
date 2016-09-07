@@ -14,13 +14,11 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 
-    let parse = ParseClient.sharedInstance
-
     override func viewDidLoad() {
         mapView.delegate = self
 
-        performHighPriority { 
-            self.parse.getStudnetLocations { (results, error) in
+        performHighPriority {
+            ParseClient.sharedInstance.getStudnetLocations { (results, error) in
                 guard error == nil else {
                     return
                 }

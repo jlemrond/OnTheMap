@@ -30,7 +30,7 @@ extension MapViewController: MKMapViewDelegate {
             components?.scheme = "https"
         }
 
-        guard let fullPath = components!.URL else {
+        guard let fullPath = components?.URL else {
             return
         }
 
