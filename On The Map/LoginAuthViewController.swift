@@ -51,7 +51,7 @@ class LoginAuthViewController: UIViewController {
                     if error != nil {
                         self.errorMessageLabel.text = error
                     } else {
-                        let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MapAndTableView") as! UITabBarController
+                        let tabBarController = self.storyboard?.instantiateViewControllerWithIdentifier("MapAndTableNavigation") as! UINavigationController
                         self.presentViewController(tabBarController, animated: true, completion: nil)
                     }
                 })

@@ -52,8 +52,4 @@ class Pin: NSObject, MKAnnotation {
 
     }
 
-    func printName() {
-        print(title)
-    }
-
 }

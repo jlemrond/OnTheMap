@@ -65,3 +65,26 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 }
+
+extension TableViewController: NavigationBarDelegate {
+
+    func refreshData() {
+        performHighPriority {
+            ParseClient.sharedInstance.getStudnetLocations { (results, error) in
+                guard error == nil else {
+                    return
+                }
+
+                guard let results = results else {
+                    return
+                }
+
+                ParseClient.sharedInstance.collectPins(results)
+                performOnMain({
+                    self.tableView.reloadData()
+                })
+            }
+        }
+    }
+
+}

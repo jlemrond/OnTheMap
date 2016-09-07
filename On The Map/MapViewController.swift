@@ -10,13 +10,37 @@ import Foundation
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, NavigationBarDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    let stuff = "This"
+
+    static let sharedInstance = MapViewController()
 
     override func viewDidLoad() {
         mapView.delegate = self
 
+        setUpNavigationBar()
+
+        addPinsToMap()
+
+        performStandardPriority { 
+            UdacityClient.sharedInstance.getUserData({ (error) in
+                if error != nil {
+                    print(error)
+                }
+            })
+        }
+
+        clearPins()
+
+    }
+
+    func clearPins() {
+        mapView.removeAnnotations(mapView.annotations)
+    }
+
+    func addPinsToMap() {
         performHighPriority {
             ParseClient.sharedInstance.getStudnetLocations { (results, error) in
                 guard error == nil else {
@@ -30,26 +54,29 @@ class MapViewController: UIViewController {
                 let pinsArray = ParseClient.sharedInstance.collectPins(results)
                 performOnMain({
                     self.mapView.addAnnotations(pinsArray)
+                    print(self.mapView.annotations)
                 })
             }
         }
-
-        performStandardPriority { 
-            UdacityClient.sharedInstance.getUserData({ (error) in
-                if error != nil {
-                    print(error)
-                }
-            })
-        }
-
     }
 
-    @IBAction func test(sender: AnyObject) {
+    func setUpNavigationBar() {
+        print("Setting Up Navigation Bar")
 
-        print(UdacityClient.sharedInstance.firstName)
+        tabBarController?.navigationItem.title = "On The Map"
 
+        let refreshButton = UIBarButtonItem(image: UIImage(named: "MapIcon"), style: .Plain, target: self, action: #selector(refreshData))
+        let addButton = UIBarButtonItem(image: UIImage(named: "AddIcon"), style: .Plain, target: self, action: #selector(addPin))
 
+        let logoutButton = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logout))
 
+        tabBarController?.navigationItem.setRightBarButtonItems([refreshButton, addButton], animated: true)
+        tabBarController?.navigationItem.setLeftBarButtonItem(logoutButton, animated: true)
+        
     }
 
+    func refreshData() {
+        clearPins()
+        addPinsToMap()
+    }
 }
