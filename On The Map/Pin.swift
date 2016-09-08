@@ -11,14 +11,14 @@ import MapKit
 
 class Pin: NSObject, MKAnnotation {
 
-    let longitude: Float
-    let latitude: Float
-    let objectID: String
-    let firstName: String?
-    let lastName: String?
-    let mediaURL: String?
-    let uniqueKey: String?
-    let locationName: String?
+    var longitude: Float
+    var latitude: Float
+    var objectID: String?
+    var firstName: String?
+    var lastName: String?
+    var mediaURL: String?
+    var uniqueKey: String?
+    var locationName: String?
 
     var title: String? {
 
@@ -43,13 +43,29 @@ class Pin: NSObject, MKAnnotation {
 
         longitude = properties[key.longitude] as? Float ?? 0
         latitude = properties[key.latitude] as? Float ?? 0
-        objectID = properties[key.objectID] as! String
+        objectID = properties[key.objectID] as? String
         firstName = properties[key.firstName] as? String
         lastName = properties[key.lastName] as? String
         mediaURL = properties[key.mediaURL] as? String
         uniqueKey = properties[key.uniqueKey] as? String
         locationName = properties[key.mapString] as? String
 
+    }
+
+    init(placemark: CLPlacemark) {
+        let coordinate = placemark.location!.coordinate
+        longitude = Float(coordinate.longitude)
+        latitude = Float(coordinate.latitude)
+        locationName = placemark.locality
+        firstName = "Jason"
+        lastName = "Lemrond"
+    }
+
+    init(coordinate: CLLocationCoordinate2D) {
+        longitude = Float(coordinate.longitude)
+        latitude = Float(coordinate.latitude)
+        firstName = "Jason"
+        lastName = "Lemrond"
     }
 
 }

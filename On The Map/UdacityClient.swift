@@ -112,6 +112,9 @@ class UdacityClient: NSObject, Networkable {
                 self.lastName = String(lastName)
             }
 
+            print("User Data Aquired")
+            completionHandler(error: nil)
+
         }
 
     }

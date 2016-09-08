@@ -29,11 +29,16 @@ class ParseClient: NSObject, Networkable {
         // Reset Array of Pins
         pins = []
 
-        let url = buildParseURL(.getStudentLocation, parameters: nil)
+        let url = NSURL(string: URL.fullPath)
 
-        let request = NSMutableURLRequest(URL: url)
+        let request = NSMutableURLRequest(URL: url!)
         request.addValue(Keys.applicationID, forHTTPHeaderField: HeaderFields.applicationID)
         request.addValue(Keys.api, forHTTPHeaderField: HeaderFields.api)
+
+//        guard let request = buildParseRequest(.getStudentLocation) else {
+//            completion(results: nil, error: "Unable to create request")
+//            return
+//        }
 
         makeAPIRequest(request) { (result, error) in
 
@@ -49,6 +54,26 @@ class ParseClient: NSObject, Networkable {
 
             completion(results: results, error: nil)
         }
+    }
+
+    func postStudentLocations(parameters: [String: AnyObject], completion: (results: AnyObject?, error: String?) -> Void) {
+
+        guard let request = buildParseRequest(.postStudentLocation) else {
+            completion(results: nil, error: "Unable to create request")
+            return
+        }
+
+        let jsonString = createJSONString(parameters)
+
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = jsonString?.dataUsingEncoding(NSUTF8StringEncoding)
+
+        makeAPIRequest(request) { (result, error) in
+            print(result)
+        }
+
+
     }
 
 
@@ -86,16 +111,54 @@ class ParseClient: NSObject, Networkable {
 
     }
 
-    // MARK: Build URL
-    // Build URL based on method used provided
-    func buildParseURL(method: ParseClient.method, parameters: [String: String]?) -> NSURL {
+    // MARK: Create JSON String
+    // Create a String from a dictionary containing JSON Data for POST Headers
+    func createJSONString(jsonData: [String: AnyObject]) -> String? {
 
-        var urlString = URL.fullPath
-        if method == .getStudentLocation {
-            urlString = URL.fullPath + "?limit=100"
+        guard (NSJSONSerialization.isValidJSONObject(jsonData)) else {
+            print("Not a valid JSON Object")
+            return nil
         }
 
-        return NSURL(string: urlString)!
+        let jsonObject: NSData
+        do {
+            jsonObject = try NSJSONSerialization.dataWithJSONObject(jsonData, options: .PrettyPrinted)
+        } catch {
+            print("Unable to create JSON Object")
+            return nil
+        }
+
+        guard let jsonString = NSString(data: jsonObject, encoding: NSUTF8StringEncoding) else {
+            print("Unable to create string from JSON Object")
+            return nil
+        }
+
+        print("JSON String: \(jsonString)")
+        return String(jsonString)
+
+    }
+
+    // MARK: Build URL
+    // Build URL based on method used provided
+    func buildParseRequest(method: ParseClient.method) -> NSMutableURLRequest? {
+
+        var urlString: String
+        switch method {
+        case .getStudentLocation:
+            urlString = URL.fullPath + "?limit=100"
+        case .postStudentLocation:
+            urlString = URL.fullPath
+        }
+
+        guard let url = NSURL(string: urlString) else {
+            return nil
+        }
+
+        let request = NSMutableURLRequest(URL: url)
+        request.addValue(Keys.applicationID, forHTTPHeaderField: HeaderFields.applicationID)
+        request.addValue(Keys.api, forHTTPHeaderField: HeaderFields.api)
+
+        return request
 
     }
 
@@ -125,6 +188,7 @@ extension ParseClient {
     // MARK: Methods
     enum method: String {
         case getStudentLocation
+        case postStudentLocation
     }
 
     // MARK: Response Keys
@@ -142,6 +206,17 @@ extension ParseClient {
         static let mediaURL = "mediaURL"
         static let uniqueKey = "uniqueKey"
         static let mapString = "mapString"
+    }
+
+    // MARK: Parameter Values
+    struct ParameterKeys {
+        static let uniqueKey = "uniqueKey"
+        static let firstName = "firstName"
+        static let lastName = "lastName"
+        static let mapString = "mapString"
+        static let mediaURL = "mediaURL"
+        static let latitude = "latitude"
+        static let longitude = "longitude"
     }
 
 }

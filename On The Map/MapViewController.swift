@@ -13,7 +13,6 @@ import MapKit
 class MapViewController: UIViewController, NavigationBarDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
-    let stuff = "This"
 
     static let sharedInstance = MapViewController()
 
@@ -31,8 +30,6 @@ class MapViewController: UIViewController, NavigationBarDelegate {
                 }
             })
         }
-
-        clearPins()
 
     }
 

@@ -82,7 +82,7 @@ class LoginAuthViewController: UIViewController {
 }
 
 
-extension LoginAuthViewController : UITextFieldDelegate {
+extension LoginAuthViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
 
