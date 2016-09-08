@@ -51,7 +51,6 @@ class MapViewController: UIViewController, NavigationBarDelegate {
                 let pinsArray = ParseClient.sharedInstance.collectPins(results)
                 performOnMain({
                     self.mapView.addAnnotations(pinsArray)
-                    print(self.mapView.annotations)
                 })
             }
         }
@@ -76,9 +75,14 @@ class MapViewController: UIViewController, NavigationBarDelegate {
         clearPins()
         addPinsToMap()
     }
+    
 
     // 'Perform' functions used to allow #selectors to execute
     // protocol methods from the NavigationBarDelegate.
+    //
+    // Appears to be a bug.
+    //
+    // https://forums.developer.apple.com/message/49465#49465
     func performLogout() {
         logout()
     }

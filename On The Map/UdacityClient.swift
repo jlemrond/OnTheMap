@@ -120,6 +120,48 @@ class UdacityClient: NSObject, Networkable {
         }
 
     }
+    //  MARK: Logout
+    /// Delete sessionID from Udacity in order to logout.
+    func logout(completion: (response: AnyObject?, error: String?) -> Void) {
+
+        let url = createUdacityURL(.login)
+
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "DELETE"
+
+        var xsrfcookie: NSHTTPCookie?
+        let sharedCookie = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+
+        guard let cookies = sharedCookie.cookies else {
+            print("Unable to get cookie data")
+            return
+        }
+
+        for cookie in cookies {
+            if cookie.name == "XSRF-TOKEN" {
+                xsrfcookie = cookie
+            }
+        }
+
+        guard let xsrfCookie = xsrfcookie else {
+            print("No XSRF-TOKEN available in cookies")
+            return
+        }
+
+        request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+
+        makeAPIRequest(request) { (result, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+
+            print(result)
+        }
+
+
+
+    }
 
     /// Parse returned data into readable JSON.
     func parseJSONData(data: NSData) -> AnyObject? {

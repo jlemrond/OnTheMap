@@ -56,7 +56,6 @@ class LoginAuthViewController: UIViewController {
                 })
             }
         }
-
     }
 
     /// Send user to Udacity's sign up page.
