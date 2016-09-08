@@ -70,7 +70,12 @@ class ParseClient: NSObject, Networkable {
         request.HTTPBody = jsonString?.dataUsingEncoding(NSUTF8StringEncoding)
 
         makeAPIRequest(request) { (result, error) in
-            print(result)
+            guard let result = result else {
+                completion(results: nil, error: "No Data Returned")
+                return
+            }
+
+            completion(results: result, error: nil)
         }
 
 

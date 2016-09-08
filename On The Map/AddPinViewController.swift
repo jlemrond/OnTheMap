@@ -12,6 +12,8 @@ import MapKit
 
 class AddPinViewController: UIViewController, MKMapViewDelegate {
 
+    var addPinDelegate: NavigationBarDelegate?
+
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var searchBar: UITextField!
@@ -21,8 +23,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
 
     var weblinkViewElements: [UIView]!
 
-    var dropPin = MKPointAnnotation()
-    var postPin: Pin?
+    var postPin: Pin!
 
     let userData = UdacityClient.sharedInstance
     typealias postKeys = ParseClient.ParameterKeys
@@ -71,15 +72,11 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
             let regionRadius: CLLocationDistance = 2000
             let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinates, regionRadius, regionRadius)
 
-            print(data.locality)
-            self.dropPin.coordinate = coordinates
-            self.dropPin.title = data.locality
-
             self.postPin = Pin(placemark: data)
 
             performOnMain({
                 self.mapView.setRegion(coordinateRegion, animated: true)
-                self.mapView.addAnnotation(self.dropPin)
+                self.mapView.addAnnotation(self.postPin)
                 for items in self.weblinkViewElements {
                     items.hidden = false
                 }
@@ -112,7 +109,14 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
         ]
 
         ParseClient.sharedInstance.postStudentLocations(jsonData) { (results, error) in
-            print(results)
+            guard error == nil  else {
+                print("Error: unable to post Pin")
+                return
+            }
+
+            self.addPinDelegate?.refreshData()
+            self.dismissViewControllerAnimated(true, completion: nil)
+
         }
 
     }

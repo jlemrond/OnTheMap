@@ -34,7 +34,7 @@ class Pin: NSObject, MKAnnotation {
     }
 
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: Double(longitude), longitude: Double(latitude))
+        return CLLocationCoordinate2D(latitude: Double(latitude), longitude: Double(longitude))
     }
 
     init(properties: [String: AnyObject]) {

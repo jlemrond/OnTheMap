@@ -63,9 +63,9 @@ class MapViewController: UIViewController, NavigationBarDelegate {
         tabBarController?.navigationItem.title = "On The Map"
 
         let refreshButton = UIBarButtonItem(image: UIImage(named: "MapIcon"), style: .Plain, target: self, action: #selector(refreshData))
-        let addButton = UIBarButtonItem(image: UIImage(named: "AddIcon"), style: .Plain, target: self, action: #selector(showAddPinView))
+        let addButton = UIBarButtonItem(image: UIImage(named: "AddIcon"), style: .Plain, target: self, action: #selector(performShowAddPinView))
 
-        let logoutButton = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logout))
+        let logoutButton = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(performLogout))
 
         tabBarController?.navigationItem.setRightBarButtonItems([refreshButton, addButton], animated: true)
         tabBarController?.navigationItem.setLeftBarButtonItem(logoutButton, animated: true)
@@ -75,5 +75,15 @@ class MapViewController: UIViewController, NavigationBarDelegate {
     func refreshData() {
         clearPins()
         addPinsToMap()
+    }
+
+    // 'Perform' functions used to allow #selectors to execute
+    // methods from the NavigationBarDelegate.
+    func performLogout() {
+        logout()
+    }
+
+    func performShowAddPinView() {
+        showAddPinView()
     }
 }

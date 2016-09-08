@@ -15,14 +15,15 @@ protocol NavigationBarDelegate {
     func logout()
 }
 
-extension UIViewController {
+extension NavigationBarDelegate where Self: UIViewController {
 
     func showAddPinView() {
 
-        guard let addPinViewController = storyboard?.instantiateViewControllerWithIdentifier("AddPinViewController") else {
+        guard let addPinViewController = storyboard?.instantiateViewControllerWithIdentifier("AddPinViewController") as? AddPinViewController else {
             print("Unable to Access AddPinViewController")
             return
         }
+        addPinViewController.addPinDelegate = self
         addPinViewController.modalPresentationStyle = .FullScreen
         presentViewController(addPinViewController, animated: true, completion: nil)
 
