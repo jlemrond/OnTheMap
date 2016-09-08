@@ -28,6 +28,7 @@ class UdacityClient: NSObject, Networkable {
 
     /// Get Session ID when a valid username and password is submitted.
     func getSessionID(username username: String, password: String, completionHandler: (error: String?) -> Void) {
+        print("Function Called: Get Session ID")
 
         let url = createUdacityURL(.login)
 
@@ -52,8 +53,6 @@ class UdacityClient: NSObject, Networkable {
 
             }
 
-            print("Returned JSON Data: \n\(jsonData)")
-
             // Get Session Data
             guard let sessionData = jsonData[ResponseKeys.session] as? [String: AnyObject] else {
                 completionHandler(error: "Session data unavailable.")
@@ -66,16 +65,19 @@ class UdacityClient: NSObject, Networkable {
                 return
             }
 
+            // Get Account Data
             guard let accountData = jsonData[ResponseKeys.account] as? [String: AnyObject] else {
                 completionHandler(error: "Account data unavailable.")
                 return
             }
 
+            // Get Account Key
             guard let accountKey = accountData[ResponseKeys.key] as? String else {
                 completionHandler(error: "Unable to get Account ID")
                 return
             }
 
+            // Store Key/ID in UdacityClient
             self.sessionID = sessionID
             self.accountKey = accountKey
             
@@ -84,11 +86,11 @@ class UdacityClient: NSObject, Networkable {
 
     }
 
+    /// Get User Data from Udacity.
     func getUserData(completionHandler: ((error: String?) -> Void)) {
+        print("Function Called: Get User Data")
 
         let url = createUdacityURL(.getUserData)
-
-        print("URL: \(url)")
 
         let request = NSMutableURLRequest(URL: url)
         
@@ -119,6 +121,7 @@ class UdacityClient: NSObject, Networkable {
 
     }
 
+    /// Parse returned data into readable JSON.
     func parseJSONData(data: NSData) -> AnyObject? {
 
         // Delete the first 5 characters in the data. (Udacity Specific Thing)
@@ -133,9 +136,12 @@ class UdacityClient: NSObject, Networkable {
             return nil
         }
 
+        print("JSON Data parsed: \n\(jsonData)")
+
         return jsonData
     }
 
+    /// Create URL for Udacity's API based on method provided.
     private func createUdacityURL(method: UdacityClient.method) -> NSURL {
 
         var methodPath: String
@@ -157,6 +163,8 @@ class UdacityClient: NSObject, Networkable {
         components.scheme = URL.apiScheme
         components.host = URL.apiHost
         components.path = URL.apiPath + methodPath
+
+        print("URL for request: \(String(components.URL!))")
 
         return components.URL!
     }

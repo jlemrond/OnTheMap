@@ -105,7 +105,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
             postKeys.latitude: pinData.latitude,
             postKeys.longitude: pinData.longitude,
             postKeys.mediaURL: weblinkTextField.text!,
-            postKeys.mapString: pinData.locationName!
+            postKeys.mapString: pinData.locationName ?? ""
         ]
 
         ParseClient.sharedInstance.postStudentLocations(jsonData) { (results, error) in

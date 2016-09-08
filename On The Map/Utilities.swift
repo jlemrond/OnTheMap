@@ -9,7 +9,6 @@
 import Foundation
 
 
-
 func performOnMain(action: () -> Void) {
 
     dispatch_async(GlobalQueue.main) {

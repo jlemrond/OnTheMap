@@ -24,6 +24,7 @@ class ParseClient: NSObject, Networkable {
     var pins: [Pin] = []
 
     // MARK: - Get Student Locations
+    /// Get last 100 Pins entered into the Parse Database.
     func getStudnetLocations(completion: (results: [[String: AnyObject]]?, error: String?) -> Void) {
 
         // Reset Array of Pins
@@ -34,11 +35,6 @@ class ParseClient: NSObject, Networkable {
         let request = NSMutableURLRequest(URL: url!)
         request.addValue(Keys.applicationID, forHTTPHeaderField: HeaderFields.applicationID)
         request.addValue(Keys.api, forHTTPHeaderField: HeaderFields.api)
-
-//        guard let request = buildParseRequest(.getStudentLocation) else {
-//            completion(results: nil, error: "Unable to create request")
-//            return
-//        }
 
         makeAPIRequest(request) { (result, error) in
 
@@ -56,6 +52,8 @@ class ParseClient: NSObject, Networkable {
         }
     }
 
+    //  MARK: Post Student Locations
+    /// Add Student pins to Parse Database.
     func postStudentLocations(parameters: [String: AnyObject], completion: (results: AnyObject?, error: String?) -> Void) {
 
         guard let request = buildParseRequest(.postStudentLocation) else {
@@ -95,12 +93,14 @@ class ParseClient: NSObject, Networkable {
             return nil
         }
 
+        print("JSON Data parsed: \n\(jsonData)")
+
         return jsonData
 
     }
 
-    // MARK: Collect Pins
-    // Collect Pins and store them in pins array
+    //  MARK: Collect Pins
+    /// Collect Pins and store them in pins array
     func collectPins(data: [[String:AnyObject]]) -> [MKAnnotation] {
 
         pins = []
@@ -116,15 +116,17 @@ class ParseClient: NSObject, Networkable {
 
     }
 
-    // MARK: Create JSON String
-    // Create a String from a dictionary containing JSON Data for POST Headers
+    //  MARK: Create JSON String
+    /// Create a String from a dictionary containing JSON Data for POST Headers
     func createJSONString(jsonData: [String: AnyObject]) -> String? {
 
+        // Validate data supplied is can be converted to JSON.
         guard (NSJSONSerialization.isValidJSONObject(jsonData)) else {
             print("Not a valid JSON Object")
             return nil
         }
 
+        // Convert data to JSON.
         let jsonObject: NSData
         do {
             jsonObject = try NSJSONSerialization.dataWithJSONObject(jsonData, options: .PrettyPrinted)
@@ -133,6 +135,7 @@ class ParseClient: NSObject, Networkable {
             return nil
         }
 
+        // Convert JSON Data into a string.
         guard let jsonString = NSString(data: jsonObject, encoding: NSUTF8StringEncoding) else {
             print("Unable to create string from JSON Object")
             return nil
@@ -143,8 +146,8 @@ class ParseClient: NSObject, Networkable {
 
     }
 
-    // MARK: Build URL
-    // Build URL based on method used provided
+    //  MARK: Build URL
+    /// Build URL Request based on method provided.
     func buildParseRequest(method: ParseClient.method) -> NSMutableURLRequest? {
 
         var urlString: String

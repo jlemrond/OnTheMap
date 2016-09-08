@@ -17,7 +17,6 @@ class LoginAuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
         usernameTextField.delegate = self
         passwordTextField.delegate = self
@@ -60,12 +59,14 @@ class LoginAuthViewController: UIViewController {
 
     }
 
+    /// Send user to Udacity's sign up page.
     @IBAction func didTapSignUp(sender: AnyObject) {
 
         UIApplication.sharedApplication().openURL(UdacityClient.SignUp.url)
 
     }
 
+    /// Resigns first responder for both text fields on this View.
     func resignFirstResponderForAll() {
         if usernameTextField.isFirstResponder() {
             usernameTextField.resignFirstResponder()
@@ -76,6 +77,7 @@ class LoginAuthViewController: UIViewController {
         }
     }
 
+    /// Resign Keyboard if the region outside of the keyboard is selected.
     @IBAction func viewTapped(sender: UITapGestureRecognizer) {
         resignFirstResponderForAll()
     }

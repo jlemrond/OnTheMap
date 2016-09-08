@@ -9,6 +9,8 @@
 import Foundation
 import MapKit
 
+
+/// Object used to store data for Pins.
 class Pin: NSObject, MKAnnotation {
 
     var longitude: Float
@@ -57,15 +59,6 @@ class Pin: NSObject, MKAnnotation {
         longitude = Float(coordinate.longitude)
         latitude = Float(coordinate.latitude)
         locationName = placemark.locality
-        firstName = "Jason"
-        lastName = "Lemrond"
-    }
-
-    init(coordinate: CLLocationCoordinate2D) {
-        longitude = Float(coordinate.longitude)
-        latitude = Float(coordinate.latitude)
-        firstName = "Jason"
-        lastName = "Lemrond"
     }
 
 }

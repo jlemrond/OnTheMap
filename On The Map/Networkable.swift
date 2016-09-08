@@ -19,6 +19,7 @@ protocol Networkable {
 
 extension Networkable {
 
+    /// Perform API requests and check for the appropriate errors.
     func makeAPIRequest(request: NSMutableURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
 
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in

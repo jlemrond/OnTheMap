@@ -78,7 +78,7 @@ class MapViewController: UIViewController, NavigationBarDelegate {
     }
 
     // 'Perform' functions used to allow #selectors to execute
-    // methods from the NavigationBarDelegate.
+    // protocol methods from the NavigationBarDelegate.
     func performLogout() {
         logout()
     }
