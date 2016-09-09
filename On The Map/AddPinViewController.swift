@@ -64,22 +64,27 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
     /// Return the data to create a Pin on the MapView.
     @IBAction func searchForRegion() {
 
-        guard let query = searchBar.text else {
-            print("No Text in Search Field")
+        guard !searchBar.text!.isEmpty else {
+            displayOneButtonAlert("Alert", message: "Please enter text in Search Bar")
             return
         }
 
         let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(query) { (response, error) in
+        geocoder.geocodeAddressString(searchBar.text!) { (response, error) in
             guard error == nil else {
-                print("error with request")
+                if error?.code == 8 {
+                    self.displayOneButtonAlert("Oops!", message: "Are you sure that's a real place?  We could not find it.\n\nWhy don't you try something different?")
+                } else {
+                    self.displayOneButtonAlert("Oops!", message: "Something bad happened")
+                }
+                print(error)
                 return
             }
 
             let data = response![0]
 
             guard let coordinates = data.location?.coordinate else {
-                print("No Coordinates Returned")
+                self.displayOneButtonAlert("Alert", message: "No coordinates available")
                 return
             }
 
@@ -104,13 +109,13 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
 
         performHighPriority {
             // Verify text field is not empty.
-            guard !(self.weblinkTextField.text!.isEmpty) else {
-                print("Please add a link to your pin.")
+            guard !self.weblinkTextField.text!.isEmpty else {
+                self.displayOneButtonAlert("Slow Down!", message: "Please add a link to your pin, before sumbitting!")
                 return
             }
 
             guard let pinData = self.postPin else {
-                print("No Data for Pin")
+                self.displayOneButtonAlert("Oops!", message: "Data unavailable for pin")
                 return
             }
 
@@ -127,7 +132,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
 
             ParseClient.sharedInstance.postStudentLocations(jsonData) { (results, error) in
                 guard error == nil  else {
-                    print("Error: unable to post Pin")
+                    self.displayOneButtonAlert("Error", message: error)
                     return
                 }
 

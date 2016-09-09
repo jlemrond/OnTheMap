@@ -60,6 +60,7 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         guard let url = ParseClient.sharedInstance.pins[indexPath.item].subtitle else {
+            displayOneButtonAlert("Alert", message: "No URL available")
             return
         }
 
@@ -70,6 +71,7 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
         print(components?.URL)
 
         guard let fullPath = components?.URL else {
+            displayOneButtonAlert("Alert", message: "Unable to access URL")
             return
         }
 
@@ -86,10 +88,12 @@ extension TableViewController: NavigationBarDelegate {
         performHighPriority {
             ParseClient.sharedInstance.getStudnetLocations { (results, error) in
                 guard error == nil else {
+                    self.displayOneButtonAlert("Error", message: error)
                     return
                 }
 
                 guard let results = results else {
+                    self.displayOneButtonAlert("Alert", message: "No Results returned")
                     return
                 }
 

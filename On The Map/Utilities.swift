@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 func performOnMain(action: () -> Void) {
@@ -75,4 +76,26 @@ struct GlobalQueue {
     static var defaultQueue: dispatch_queue_t {
         return dispatch_get_global_queue(Int(QOS_CLASS_DEFAULT.rawValue), 0)
     }
+}
+
+
+
+// MARK: - Alert Controller Functions
+
+extension UIViewController {
+
+    func displayOneButtonAlert(title: String?, message: String?) {
+
+        if message != nil {
+            print("Error: \(message)")
+        }
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        performOnMain { 
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+
+    }
+
 }

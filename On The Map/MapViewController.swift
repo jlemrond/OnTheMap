@@ -32,7 +32,7 @@ class MapViewController: UIViewController, NavigationBarDelegate {
         performStandardPriority { 
             UdacityClient.sharedInstance.getUserData({ (error) in
                 if error != nil {
-                    print(error)
+                    self.displayOneButtonAlert("Alert", message: error)
                 }
             })
         }
@@ -50,13 +50,17 @@ class MapViewController: UIViewController, NavigationBarDelegate {
 
     /// Collects Data from Parse and Adds Pins to Map
     func addPinsToMap() {
+        print("Function Called: Add Pins to Map")
+
         performHighPriority {
             ParseClient.sharedInstance.getStudnetLocations { (results, error) in
                 guard error == nil else {
+                    self.displayOneButtonAlert("Error", message: error)
                     return
                 }
 
                 guard let results = results else {
+                    self.displayOneButtonAlert("Alert", message: "No Results Returned")
                     return
                 }
 
@@ -88,6 +92,7 @@ class MapViewController: UIViewController, NavigationBarDelegate {
 
     /// Refresh Data
     func refreshData() {
+        print("Refresh Data Called")
         mapView.removeAnnotations(mapView.annotations)
         addPinsToMap()
     }

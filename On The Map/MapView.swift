@@ -22,7 +22,8 @@ extension MapViewController: MKMapViewDelegate {
         guard let annotationView = sender.view as? MKPinAnnotationView,
             let url = annotationView.annotation?.subtitle,
             let link = url else {
-            return
+                displayOneButtonAlert("Error", message: "Unable to access web page url")
+                return
         }
 
         let components = NSURLComponents(string: link)
@@ -31,6 +32,7 @@ extension MapViewController: MKMapViewDelegate {
         }
 
         guard let fullPath = components?.URL else {
+            displayOneButtonAlert("Error", message: "Unable to access web page url")
             return
         }
 
