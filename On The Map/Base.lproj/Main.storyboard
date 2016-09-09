@@ -79,6 +79,8 @@
                     <connections>
                         <outlet property="errorMessageLabel" destination="zIo-NF-aSA" id="9Sc-Lz-KT1"/>
                         <outlet property="passwordTextField" destination="Wou-i4-Bq7" id="j51-xj-HP6"/>
+                        <outlet property="signUpButton" destination="24G-2w-W5w" id="8SS-yW-BQu"/>
+                        <outlet property="submitButton" destination="LXB-Kx-yas" id="tbA-sh-4GY"/>
                         <outlet property="usernameTextField" destination="7bt-2q-POv" id="N4f-EJ-dx1"/>
                     </connections>
                 </viewController>

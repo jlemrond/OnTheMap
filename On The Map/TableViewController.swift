@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 
+//  MARK: TableViewController
+/// Class for controlling Pin data supplied by Parse in list TableView format.
 class TableViewController: UIViewController {
 
+    // MARK: Variables
     @IBOutlet weak var tableView: UITableView!
 
     let parse = ParseClient.sharedInstance
 
+    // MARK: View Load/Appear Functions
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -30,13 +34,16 @@ class TableViewController: UIViewController {
 
 }
 
+// MARK: - TableViewDelegate Methods
+
 extension TableViewController: UITableViewDelegate, UITableViewDataSource {
 
+    // MARK: Number of Rows in Section
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ParseClient.sharedInstance.pins.count
     }
 
-
+    // MARK: Cell for Row at IndexPath
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "TableViewCell")
@@ -49,7 +56,7 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-
+    // MARK: Did Select Row
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         guard let url = ParseClient.sharedInstance.pins[indexPath.item].subtitle else {
@@ -70,6 +77,8 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 }
+
+// MARK: - NavigationBarDelegate Methods
 
 extension TableViewController: NavigationBarDelegate {
 

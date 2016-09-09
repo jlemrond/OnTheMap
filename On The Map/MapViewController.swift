@@ -10,11 +10,17 @@ import Foundation
 import UIKit
 import MapKit
 
+// MARK: MapViewController, NavigationBarDelegate
+
 class MapViewController: UIViewController, NavigationBarDelegate {
+
+
+    // MARK: Variables
 
     @IBOutlet weak var mapView: MKMapView!
 
-    static let sharedInstance = MapViewController()
+
+    //MARK: Standard Load/Appear Functions
 
     override func viewDidLoad() {
         mapView.delegate = self
@@ -34,15 +40,15 @@ class MapViewController: UIViewController, NavigationBarDelegate {
 
     override func viewWillAppear(animated: Bool) {
         performOnMain { 
-            self.clearPins()
+            self.mapView.removeAnnotations(self.mapView.annotations)
             self.mapView.addAnnotations(ParseClient.sharedInstance.pins)
         }
     }
 
-    func clearPins() {
-        mapView.removeAnnotations(mapView.annotations)
-    }
 
+    // MARK: Functions
+
+    /// Collects Data from Parse and Adds Pins to Map
     func addPinsToMap() {
         performHighPriority {
             ParseClient.sharedInstance.getStudnetLocations { (results, error) in
@@ -62,6 +68,8 @@ class MapViewController: UIViewController, NavigationBarDelegate {
         }
     }
 
+
+    /// NavigationBar UI Setup
     func setUpNavigationBar() {
         print("Setting Up Navigation Bar")
 
@@ -77,12 +85,15 @@ class MapViewController: UIViewController, NavigationBarDelegate {
         
     }
 
+
+    /// Refresh Data
     func refreshData() {
-        clearPins()
+        mapView.removeAnnotations(mapView.annotations)
         addPinsToMap()
     }
     
-
+    // MARK: Perform Selector Method Functions
+    //
     // 'Perform' functions used to allow #selectors to execute
     // protocol methods from the NavigationBarDelegate.
     //

@@ -10,8 +10,12 @@ import Foundation
 import UIKit
 import MapKit
 
+// MARK: AddPinViewCtonroller
+
 class AddPinViewController: UIViewController, MKMapViewDelegate {
 
+
+    // MARK: Variables
     var addPinDelegate: NavigationBarDelegate?
 
     @IBOutlet weak var mapView: MKMapView!
@@ -28,6 +32,10 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
     let userData = UdacityClient.sharedInstance
     typealias postKeys = ParseClient.ParameterKeys
 
+
+
+    // MARK: Standard Load/Appear Functions
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,12 +50,18 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
 
     }
 
+
+
+    //   MARK: Functions
+
+    /// Dismisses AddPinView Controller.
     @IBAction func cancelAddPin() {
-
         dismissViewControllerAnimated(true, completion: nil)
-
     }
 
+
+    /// Search for region based on input entered into searchBar text field.
+    /// Return the data to create a Pin on the MapView.
     @IBAction func searchForRegion() {
 
         guard let query = searchBar.text else {
@@ -81,14 +95,15 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
                     items.hidden = false
                 }
             })
-
         }
-
     }
 
+
+    /// Submit Pin to Parse to validate and add to database.
     @IBAction func submitPin() {
 
-        performHighPriority { 
+        performHighPriority {
+            // Verify text field is not empty.
             guard !(self.weblinkTextField.text!.isEmpty) else {
                 print("Please add a link to your pin.")
                 return
@@ -99,6 +114,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
                 return
             }
 
+            // Create Dictionary containing the JSON Keys and Values.
             let jsonData: [String: AnyObject] = [
                 postKeys.uniqueKey: self.userData.accountKey!,
                 postKeys.firstName: self.userData.firstName!,
@@ -125,12 +141,21 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
 }
 
 
+
+// MARK: - UITextField Delegate
+
 extension AddPinViewController: UITextFieldDelegate {
 
+    // Perform actions when Return is selected on keyboard based on the active
+    // First Responder.
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if textField == searchBar {
             searchForRegion()
+        }
+
+        if textField == weblinkTextField {
+            submitPin()
         }
 
         return true
