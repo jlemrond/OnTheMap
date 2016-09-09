@@ -88,39 +88,40 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
 
     @IBAction func submitPin() {
 
-        guard !(weblinkTextField.text!.isEmpty) else {
-            print("Please add a link to your pin.")
-            return
-        }
-
-        guard let pinData = postPin else {
-            print("No Data for Pin")
-            return
-        }
-
-        let jsonData: [String: AnyObject] = [
-            postKeys.uniqueKey: userData.accountKey!,
-            postKeys.firstName: userData.firstName!,
-            postKeys.lastName: userData.lastName!,
-            postKeys.latitude: pinData.latitude,
-            postKeys.longitude: pinData.longitude,
-            postKeys.mediaURL: weblinkTextField.text!,
-            postKeys.mapString: pinData.locationName ?? ""
-        ]
-
-        ParseClient.sharedInstance.postStudentLocations(jsonData) { (results, error) in
-            guard error == nil  else {
-                print("Error: unable to post Pin")
+        performHighPriority { 
+            guard !(self.weblinkTextField.text!.isEmpty) else {
+                print("Please add a link to your pin.")
                 return
             }
 
-            self.addPinDelegate?.refreshData()
-            self.dismissViewControllerAnimated(true, completion: nil)
+            guard let pinData = self.postPin else {
+                print("No Data for Pin")
+                return
+            }
 
+            let jsonData: [String: AnyObject] = [
+                postKeys.uniqueKey: self.userData.accountKey!,
+                postKeys.firstName: self.userData.firstName!,
+                postKeys.lastName: self.userData.lastName!,
+                postKeys.latitude: pinData.latitude,
+                postKeys.longitude: pinData.longitude,
+                postKeys.mediaURL: self.weblinkTextField.text!,
+                postKeys.mapString: pinData.locationName ?? ""
+            ]
+
+            ParseClient.sharedInstance.postStudentLocations(jsonData) { (results, error) in
+                guard error == nil  else {
+                    print("Error: unable to post Pin")
+                    return
+                }
+
+                performOnMain({ 
+                    self.addPinDelegate?.refreshData()
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
         }
-
     }
-
 }
 
 

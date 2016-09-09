@@ -22,12 +22,17 @@ class TableViewController: UIViewController {
         tableView.rowHeight = 60
     }
 
+    override func viewWillAppear(animated: Bool) {
+        performOnMain { 
+            self.tableView.reloadData()
+        }
+    }
+
 }
 
 extension TableViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(ParseClient.sharedInstance.pins.count)
         return ParseClient.sharedInstance.pins.count
     }
 

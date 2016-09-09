@@ -18,11 +18,14 @@ class LoginAuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        usernameTextField.delegate = self
-        passwordTextField.delegate = self
-
+        // Set up Text Field Apperance
         passwordTextField.secureTextEntry = true
-
+        for item in [usernameTextField, passwordTextField] {
+            item.delegate = self
+            let padding = UIView(frame: CGRect(x: 0, y: 0, width: 9, height: item.frame.height))
+            item.leftView = padding
+            item.leftViewMode = .Always
+        }
     }
 
     override func viewWillDisappear(animated: Bool) {

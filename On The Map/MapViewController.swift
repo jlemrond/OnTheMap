@@ -30,7 +30,13 @@ class MapViewController: UIViewController, NavigationBarDelegate {
                 }
             })
         }
+    }
 
+    override func viewWillAppear(animated: Bool) {
+        performOnMain { 
+            self.clearPins()
+            self.mapView.addAnnotations(ParseClient.sharedInstance.pins)
+        }
     }
 
     func clearPins() {
@@ -61,7 +67,7 @@ class MapViewController: UIViewController, NavigationBarDelegate {
 
         tabBarController?.navigationItem.title = "On The Map"
 
-        let refreshButton = UIBarButtonItem(image: UIImage(named: "MapIcon"), style: .Plain, target: self, action: #selector(refreshData))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: #selector(refreshData))
         let addButton = UIBarButtonItem(image: UIImage(named: "AddIcon"), style: .Plain, target: self, action: #selector(performShowAddPinView))
 
         let logoutButton = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(performLogout))
