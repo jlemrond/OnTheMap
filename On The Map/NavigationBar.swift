@@ -33,7 +33,16 @@ extension NavigationBarDelegate where Self: UIViewController {
         print("Function Called: Logout")
 
         UdacityClient.sharedInstance.logout { (response, error) in
-            print(response)
+            guard error == nil else {
+                print("Error: ")
+                return
+            }
+
+            UdacityClient.sharedInstance.sessionID = nil
+            UdacityClient.sharedInstance.accountKey = nil
+            UdacityClient.sharedInstance.firstName = nil
+            UdacityClient.sharedInstance.lastName = nil
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
 
     }

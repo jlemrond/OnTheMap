@@ -21,6 +21,8 @@ class LoginAuthViewController: UIViewController {
         usernameTextField.delegate = self
         passwordTextField.delegate = self
 
+        passwordTextField.secureTextEntry = true
+
     }
 
     override func viewWillDisappear(animated: Bool) {

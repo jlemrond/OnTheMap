@@ -156,7 +156,7 @@ class UdacityClient: NSObject, Networkable {
                 return
             }
 
-            print(result)
+            completion(response: result, error: nil)
         }
 
 
