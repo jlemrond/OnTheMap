@@ -43,7 +43,7 @@ class MapViewController: UIViewController, NavigationBarDelegate {
         performOnMain { 
             self.mapView.removeAnnotations(self.mapView.annotations)
 
-            for pin in StudentInformation.sharedInstance.pins {
+            for pin in Pins.sharedInstance.pins {
                 self.mapView.addAnnotation(pin.locationAnnotation)
             }
 
@@ -69,7 +69,7 @@ class MapViewController: UIViewController, NavigationBarDelegate {
                     return
                 }
 
-                let pinsArray = StudentInformation.sharedInstance.collectPins(results)
+                let pinsArray = Pins.sharedInstance.collectPins(results)
                 performOnMain({
                     for pin in pinsArray {
                         self.mapView.addAnnotation(pin.locationAnnotation)

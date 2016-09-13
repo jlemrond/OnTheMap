@@ -18,13 +18,13 @@
 		EA3692941D7C707B00ECF3E6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692931D7C707B00ECF3E6 /* Utilities.swift */; };
 		EA3692961D7C945800ECF3E6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692951D7C945800ECF3E6 /* MapViewController.swift */; };
 		EA3692981D7CA2EA00ECF3E6 /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692971D7CA2EA00ECF3E6 /* ParseClient.swift */; };
-		EA36929A1D7CB02000ECF3E6 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692991D7CB02000ECF3E6 /* Pin.swift */; };
+		EA36929A1D7CB02000ECF3E6 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692991D7CB02000ECF3E6 /* StudentInformation.swift */; };
 		EA36929C1D7DD70100ECF3E6 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA36929B1D7DD70100ECF3E6 /* MapView.swift */; };
 		EA36929F1D7E728A00ECF3E6 /* Networkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA36929E1D7E728A00ECF3E6 /* Networkable.swift */; };
 		EA3692A11D7F86D000ECF3E6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692A01D7F86D000ECF3E6 /* TableViewController.swift */; };
 		EA3692A31D7F8EEC00ECF3E6 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692A21D7F8EEC00ECF3E6 /* NavigationBar.swift */; };
 		EA3692A51D7FCE0300ECF3E6 /* AddPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692A41D7FCE0300ECF3E6 /* AddPinViewController.swift */; };
-		EAF382E31D8842B100B955C1 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF382E21D8842B100B955C1 /* StudentInformation.swift */; };
+		EAF382E31D8842B100B955C1 /* Pins.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF382E21D8842B100B955C1 /* Pins.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,13 +62,13 @@
 		EA3692931D7C707B00ECF3E6 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EA3692951D7C945800ECF3E6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		EA3692971D7CA2EA00ECF3E6 /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
-		EA3692991D7CB02000ECF3E6 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
+		EA3692991D7CB02000ECF3E6 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 		EA36929B1D7DD70100ECF3E6 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		EA36929E1D7E728A00ECF3E6 /* Networkable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networkable.swift; sourceTree = "<group>"; };
 		EA3692A01D7F86D000ECF3E6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		EA3692A21D7F8EEC00ECF3E6 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		EA3692A41D7FCE0300ECF3E6 /* AddPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPinViewController.swift; sourceTree = "<group>"; };
-		EAF382E21D8842B100B955C1 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
+		EAF382E21D8842B100B955C1 /* Pins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pins.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,8 +166,8 @@
 				EA3692911D7BABCE00ECF3E6 /* UdacityClient.swift */,
 				EA36929E1D7E728A00ECF3E6 /* Networkable.swift */,
 				EA3692971D7CA2EA00ECF3E6 /* ParseClient.swift */,
-				EA3692991D7CB02000ECF3E6 /* Pin.swift */,
-				EAF382E21D8842B100B955C1 /* StudentInformation.swift */,
+				EA3692991D7CB02000ECF3E6 /* StudentInformation.swift */,
+				EAF382E21D8842B100B955C1 /* Pins.swift */,
 				EA3692931D7C707B00ECF3E6 /* Utilities.swift */,
 			);
 			name = Model;
@@ -313,7 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA36929A1D7CB02000ECF3E6 /* Pin.swift in Sources */,
+				EA36929A1D7CB02000ECF3E6 /* StudentInformation.swift in Sources */,
 				EA36929F1D7E728A00ECF3E6 /* Networkable.swift in Sources */,
 				EA36929C1D7DD70100ECF3E6 /* MapView.swift in Sources */,
 				EA3692A11D7F86D000ECF3E6 /* TableViewController.swift in Sources */,
@@ -323,7 +323,7 @@
 				EA3692611D7B92F600ECF3E6 /* AppDelegate.swift in Sources */,
 				EA3692A51D7FCE0300ECF3E6 /* AddPinViewController.swift in Sources */,
 				EA3692941D7C707B00ECF3E6 /* Utilities.swift in Sources */,
-				EAF382E31D8842B100B955C1 /* StudentInformation.swift in Sources */,
+				EAF382E31D8842B100B955C1 /* Pins.swift in Sources */,
 				EA3692961D7C945800ECF3E6 /* MapViewController.swift in Sources */,
 				EA3692921D7BABCE00ECF3E6 /* UdacityClient.swift in Sources */,
 			);

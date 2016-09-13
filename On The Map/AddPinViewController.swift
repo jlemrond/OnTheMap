@@ -28,7 +28,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
 
     var weblinkViewElements: [UIView]!
 
-    var postPin: Pin!
+    var postPin: StudentInformation!
 
     let userData = UdacityClient.sharedInstance
     typealias postKeys = ParseClient.ParameterKeys
@@ -104,7 +104,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
             let regionRadius: CLLocationDistance = 2000
             let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinates, regionRadius, regionRadius)
 
-            self.postPin = Pin(placemark: data)
+            self.postPin = StudentInformation(placemark: data)
 
             performOnMain({
                 self.mapView.setRegion(coordinateRegion, animated: true)

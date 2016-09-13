@@ -25,7 +25,7 @@ class ParseClient: NSObject, Networkable {
     func getStudnetLocations(completion: (results: [[String: AnyObject]]?, error: String?) -> Void) {
 
         // Reset Array of Pins
-        StudentInformation.sharedInstance.pins = []
+        Pins.sharedInstance.pins = []
 
         let url = NSURL(string: URL.fullPath)
 
