@@ -48,6 +48,11 @@ class UdacityClient: NSObject, Networkable {
                     return
                 }
 
+                if (error?.code == -1001) {
+                    completionHandler(error: "Unable to connect to network.  The request timed out")
+                    return
+                }
+
                 completionHandler(error: error?.localizedDescription)
                 return
 
