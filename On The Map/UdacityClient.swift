@@ -183,8 +183,6 @@ class UdacityClient: NSObject, Networkable {
             return nil
         }
 
-        print("JSON Data parsed: \n\(jsonData)")
-
         return jsonData
     }
 
@@ -210,8 +208,6 @@ class UdacityClient: NSObject, Networkable {
         components.scheme = URL.apiScheme
         components.host = URL.apiHost
         components.path = URL.apiPath + methodPath
-
-        print("URL for request: \(String(components.URL!))")
 
         return components.URL!
     }

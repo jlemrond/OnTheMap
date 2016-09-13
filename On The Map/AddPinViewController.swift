@@ -24,6 +24,7 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var weblinkTextField: UITextField!
     @IBOutlet weak var weblinkView: UIView!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var acitivityIndicator: UIActivityIndicatorView!
 
     var weblinkViewElements: [UIView]!
 
@@ -69,6 +70,8 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
             return
         }
 
+        acitivityIndicator.startAnimating()
+
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(searchBar.text!) { (response, error) in
             guard error == nil else {
@@ -95,7 +98,8 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
 
             performOnMain({
                 self.mapView.setRegion(coordinateRegion, animated: true)
-                self.mapView.addAnnotation(self.postPin)
+                self.mapView.addAnnotation(self.postPin.locationAnnotation)
+                self.acitivityIndicator.stopAnimating()
                 for items in self.weblinkViewElements {
                     items.hidden = false
                 }

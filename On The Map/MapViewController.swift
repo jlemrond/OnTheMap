@@ -39,9 +39,14 @@ class MapViewController: UIViewController, NavigationBarDelegate {
     }
 
     override func viewWillAppear(animated: Bool) {
+
         performOnMain { 
             self.mapView.removeAnnotations(self.mapView.annotations)
-            self.mapView.addAnnotations(ParseClient.sharedInstance.pins)
+
+            for pin in StudentInformation.sharedInstance.pins {
+                self.mapView.addAnnotation(pin.locationAnnotation)
+            }
+
         }
     }
 
@@ -64,9 +69,11 @@ class MapViewController: UIViewController, NavigationBarDelegate {
                     return
                 }
 
-                let pinsArray = ParseClient.sharedInstance.collectPins(results)
+                let pinsArray = StudentInformation.sharedInstance.collectPins(results)
                 performOnMain({
-                    self.mapView.addAnnotations(pinsArray)
+                    for pin in pinsArray {
+                        self.mapView.addAnnotation(pin.locationAnnotation)
+                    }
                 })
             }
         }
@@ -75,7 +82,6 @@ class MapViewController: UIViewController, NavigationBarDelegate {
 
     /// NavigationBar UI Setup
     func setUpNavigationBar() {
-        print("Setting Up Navigation Bar")
 
         tabBarController?.navigationItem.title = "On The Map"
 

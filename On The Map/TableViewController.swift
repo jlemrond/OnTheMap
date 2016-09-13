@@ -40,14 +40,14 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
 
     // MARK: Number of Rows in Section
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ParseClient.sharedInstance.pins.count
+        return StudentInformation.sharedInstance.pins.count
     }
 
     // MARK: Cell for Row at IndexPath
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "TableViewCell")
-        let cellData = ParseClient.sharedInstance.pins[indexPath.item]
+        let cellData = StudentInformation.sharedInstance.pins[indexPath.item]
 
         cell.textLabel?.text = cellData.title
         cell.detailTextLabel?.text = cellData.mediaURL
@@ -59,7 +59,7 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: Did Select Row
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        guard let url = ParseClient.sharedInstance.pins[indexPath.item].subtitle else {
+        guard let url = StudentInformation.sharedInstance.pins[indexPath.item].subtitle else {
             displayOneButtonAlert("Alert", message: "No URL available")
             return
         }
@@ -97,7 +97,7 @@ extension TableViewController: NavigationBarDelegate {
                     return
                 }
 
-                ParseClient.sharedInstance.collectPins(results)
+                StudentInformation.sharedInstance.collectPins(results)
                 performOnMain({
                     self.tableView.reloadData()
                 })

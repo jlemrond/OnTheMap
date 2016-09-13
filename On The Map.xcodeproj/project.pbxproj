@@ -24,6 +24,7 @@
 		EA3692A11D7F86D000ECF3E6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692A01D7F86D000ECF3E6 /* TableViewController.swift */; };
 		EA3692A31D7F8EEC00ECF3E6 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692A21D7F8EEC00ECF3E6 /* NavigationBar.swift */; };
 		EA3692A51D7FCE0300ECF3E6 /* AddPinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA3692A41D7FCE0300ECF3E6 /* AddPinViewController.swift */; };
+		EAF382E31D8842B100B955C1 /* StudentInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF382E21D8842B100B955C1 /* StudentInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		EA3692A01D7F86D000ECF3E6 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		EA3692A21D7F8EEC00ECF3E6 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		EA3692A41D7FCE0300ECF3E6 /* AddPinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPinViewController.swift; sourceTree = "<group>"; };
+		EAF382E21D8842B100B955C1 /* StudentInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				EA36929E1D7E728A00ECF3E6 /* Networkable.swift */,
 				EA3692971D7CA2EA00ECF3E6 /* ParseClient.swift */,
 				EA3692991D7CB02000ECF3E6 /* Pin.swift */,
+				EAF382E21D8842B100B955C1 /* StudentInformation.swift */,
 				EA3692931D7C707B00ECF3E6 /* Utilities.swift */,
 			);
 			name = Model;
@@ -320,6 +323,7 @@
 				EA3692611D7B92F600ECF3E6 /* AppDelegate.swift in Sources */,
 				EA3692A51D7FCE0300ECF3E6 /* AddPinViewController.swift in Sources */,
 				EA3692941D7C707B00ECF3E6 /* Utilities.swift in Sources */,
+				EAF382E31D8842B100B955C1 /* StudentInformation.swift in Sources */,
 				EA3692961D7C945800ECF3E6 /* MapViewController.swift in Sources */,
 				EA3692921D7BABCE00ECF3E6 /* UdacityClient.swift in Sources */,
 			);
@@ -546,6 +550,7 @@
 				EA3692871D7B92F600ECF3E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA3692881D7B92F600ECF3E6 /* Build configuration list for PBXNativeTarget "On The MapTests" */ = {
 			isa = XCConfigurationList;
@@ -554,6 +559,7 @@
 				EA36928A1D7B92F600ECF3E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA36928B1D7B92F600ECF3E6 /* Build configuration list for PBXNativeTarget "On The MapUITests" */ = {
 			isa = XCConfigurationList;
@@ -562,6 +568,7 @@
 				EA36928D1D7B92F600ECF3E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

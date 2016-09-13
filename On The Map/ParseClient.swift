@@ -20,15 +20,12 @@ class ParseClient: NSObject, Networkable {
     // Shared Session
     let session = NSURLSession.sharedSession()
 
-    // Pin Array
-    var pins: [Pin] = []
-
     // MARK: - Get Student Locations
     /// Get last 100 Pins entered into the Parse Database.
     func getStudnetLocations(completion: (results: [[String: AnyObject]]?, error: String?) -> Void) {
 
         // Reset Array of Pins
-        pins = []
+        StudentInformation.sharedInstance.pins = []
 
         let url = NSURL(string: URL.fullPath)
 
@@ -99,23 +96,6 @@ class ParseClient: NSObject, Networkable {
 
     }
 
-    //  MARK: Collect Pins
-    /// Collect Pins and store them in pins array
-    func collectPins(data: [[String:AnyObject]]) -> [MKAnnotation] {
-
-        pins = []
-
-        for (_, item) in data.enumerate() {
-
-            let pin = Pin(properties: item)
-            pins.append(pin)
-
-        }
-
-        return pins
-
-    }
-
     //  MARK: Create JSON String
     /// Create a String from a dictionary containing JSON Data for POST Headers
     func createJSONString(jsonData: [String: AnyObject]) -> String? {
@@ -153,7 +133,7 @@ class ParseClient: NSObject, Networkable {
         var urlString: String
         switch method {
         case .getStudentLocation:
-            urlString = URL.fullPath + "?limit=100"
+            urlString = URL.fullPath + "?limit=100&order=-updatedAt"
         case .postStudentLocation:
             urlString = URL.fullPath
         }
@@ -214,6 +194,7 @@ extension ParseClient {
         static let mediaURL = "mediaURL"
         static let uniqueKey = "uniqueKey"
         static let mapString = "mapString"
+        static let updatedAt = "updatedAt"
     }
 
     // MARK: Parameter Values

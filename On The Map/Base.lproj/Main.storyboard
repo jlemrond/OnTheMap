@@ -209,16 +209,25 @@
                                             <action selector="searchForRegion" destination="quR-W6-viY" eventType="touchUpInside" id="9pN-6J-RrT"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="mCV-hU-mq3">
+                                        <rect key="frame" x="453" y="14" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="757-Rb-EhR"/>
+                                            <constraint firstAttribute="height" constant="20" id="L7A-nO-1FD"/>
+                                        </constraints>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="j8I-QF-gPB" secondAttribute="bottom" constant="9" id="4Hl-oy-QUX"/>
+                                    <constraint firstItem="mCV-hU-mq3" firstAttribute="centerY" secondItem="t0Y-69-9hb" secondAttribute="centerY" id="7BM-kf-2uS"/>
                                     <constraint firstItem="j8I-QF-gPB" firstAttribute="top" secondItem="t0Y-69-9hb" secondAttribute="top" constant="9" id="Ife-OD-IEp"/>
                                     <constraint firstAttribute="height" constant="48" id="Kzx-om-oLc"/>
                                     <constraint firstAttribute="bottom" secondItem="JuU-tF-6kW" secondAttribute="bottom" constant="9" id="bYp-6z-DcQ"/>
                                     <constraint firstItem="JuU-tF-6kW" firstAttribute="leading" secondItem="j8I-QF-gPB" secondAttribute="trailing" constant="18" id="cdQ-ZX-qFY"/>
                                     <constraint firstAttribute="trailing" secondItem="JuU-tF-6kW" secondAttribute="trailing" constant="9" id="gdr-qp-sgC"/>
                                     <constraint firstItem="j8I-QF-gPB" firstAttribute="leading" secondItem="t0Y-69-9hb" secondAttribute="leading" constant="9" id="kq4-nL-UsA"/>
+                                    <constraint firstItem="JuU-tF-6kW" firstAttribute="leading" secondItem="mCV-hU-mq3" secondAttribute="trailing" constant="8" id="tkp-jJ-qo3"/>
                                     <constraint firstItem="JuU-tF-6kW" firstAttribute="top" secondItem="t0Y-69-9hb" secondAttribute="top" constant="9" id="yCQ-08-JTl"/>
                                 </constraints>
                             </view>
@@ -273,6 +282,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="acitivityIndicator" destination="mCV-hU-mq3" id="cji-fb-Vzh"/>
                         <outlet property="cancelButton" destination="Eiv-gP-DaP" id="cHr-eB-7Ix"/>
                         <outlet property="mapView" destination="XeG-ns-8nj" id="h8q-z7-7OS"/>
                         <outlet property="searchBar" destination="j8I-QF-gPB" id="cZ9-Qx-nfw"/>

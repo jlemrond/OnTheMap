@@ -9,9 +9,8 @@
 import Foundation
 import MapKit
 
-
 /// Object used to store data for Pins.
-class Pin: NSObject, MKAnnotation {
+struct Pin {
 
     var longitude: Float
     var latitude: Float
@@ -21,6 +20,7 @@ class Pin: NSObject, MKAnnotation {
     var mediaURL: String?
     var uniqueKey: String?
     var locationName: String?
+    var updatedAt: String
 
     var title: String? {
 
@@ -39,6 +39,16 @@ class Pin: NSObject, MKAnnotation {
         return CLLocationCoordinate2D(latitude: Double(latitude), longitude: Double(longitude))
     }
 
+    var locationAnnotation: MKPointAnnotation {
+
+        let point = MKPointAnnotation()
+        point.coordinate = self.coordinate
+        point.title = self.title
+        point.subtitle = self.subtitle
+
+        return point
+    }
+
     init(properties: [String: AnyObject]) {
 
         typealias key = ParseClient.PinData;
@@ -51,6 +61,9 @@ class Pin: NSObject, MKAnnotation {
         mediaURL = properties[key.mediaURL] as? String
         uniqueKey = properties[key.uniqueKey] as? String
         locationName = properties[key.mapString] as? String
+        updatedAt = properties[key.updatedAt] as! String
+
+        print(updatedAt)
 
     }
 
@@ -59,6 +72,9 @@ class Pin: NSObject, MKAnnotation {
         longitude = Float(coordinate.longitude)
         latitude = Float(coordinate.latitude)
         locationName = placemark.locality
+        updatedAt = String(NSDate())
+
+        print(updatedAt)
     }
 
 }
