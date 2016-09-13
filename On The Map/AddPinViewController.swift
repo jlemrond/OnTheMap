@@ -80,6 +80,11 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
                 } else {
                     self.displayOneButtonAlert("Oops!", message: "Something bad happened")
                 }
+
+                performOnMain({
+                    self.acitivityIndicator.stopAnimating()
+                })
+
                 print(error)
                 return
             }
@@ -87,6 +92,11 @@ class AddPinViewController: UIViewController, MKMapViewDelegate {
             let data = response![0]
 
             guard let coordinates = data.location?.coordinate else {
+                
+                performOnMain({
+                    self.acitivityIndicator.stopAnimating()
+                })
+
                 self.displayOneButtonAlert("Alert", message: "No coordinates available")
                 return
             }
